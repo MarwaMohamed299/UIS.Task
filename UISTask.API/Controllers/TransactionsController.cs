@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using UISTask.Application.Contracts.Services;
+using UISTask.Application.Models.Transactions;
 
 namespace UISTask.API.Controllers
 {
@@ -40,9 +41,9 @@ namespace UISTask.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateTransaction([FromBody] Guid productId, int quantity, DateTime date)
+        public async Task<IActionResult> CreateTransaction(TransactionAddDto transactionAddDto)
         {
-            var transaction = await _transactionService.AddTransactionAsync(productId, quantity, date);
+            var transaction = await _transactionService.AddTransactionAsync(transactionAddDto);
             return Ok();
         }
     }

@@ -12,6 +12,6 @@ namespace UISTask.Application.Contracts.Services
     {
         Task<(IEnumerable<TransactionReadDto> transactions, int totalCount)> GetAllTransactionsAsync(int pageNumber, int pageSize);
         Task<(IEnumerable<TransactionReadDto> transactions, int totalCount)> GetTransactionsByDateAsync(DateTime date, int pageNumber, int pageSize);
-        Task<TransactionAddDto> AddTransactionAsync(Guid productId, int quantity, DateTime date);
+        Task<TransactionAddDto> AddTransactionAsync(TransactionAddDto transactionAddDto);
     }
 }

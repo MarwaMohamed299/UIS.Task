@@ -30,6 +30,22 @@ namespace UISTask.Infrastructure.Data.Repositories
             return product!= null ? product : throw new KeyNotFoundException($"Product with ID {id} not found.");
         }
 
+        public async Task<Product> GetTransactionProductByIdAsync(Guid productId)
+        {
+            var transaction = await _context.Transactions
+                .Include(t => t.ProductTransactions) 
+                .ThenInclude(pt => pt.Product) 
+                .FirstOrDefaultAsync(t => t.ProductTransactions!.Any(pt => pt.ProductId == productId)); 
+
+            
+            var productTransactions = transaction.ProductTransactions
+                .FirstOrDefault(pt => pt.ProductId == productId);
+
+            return productTransactions.Product ;
+        }
+
+
+
         public async Task<(List<Product> Products, int TotalCount)> GetAllProductsAsync(int pageNumber, int pageSize)
         {
             var totalCount = await _context.Products.CountAsync(); 
