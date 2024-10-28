@@ -11,7 +11,6 @@ namespace UISTask.Application.Contracts.Repositories
     {
         Task AddProductAsync(Product product);
         Task<Product> GetProductByIdAsync(Guid id);
-        Task<Product> GetTransactionProductByIdAsync(Guid id);
         Task<(List<Product> Products, int TotalCount)> GetAllProductsAsync(int pageNumber, int pageSize);
         Task UpdateProductAsync(Product product);
         Task DeleteProductAsync(Guid productId);

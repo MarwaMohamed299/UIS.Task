@@ -7,7 +7,6 @@ using UISTask.Application.Contracts.Services;
 using UISTask.Application.Models.Transactions;
 using UISTask.Application.Contracts.UnitOfWork;
 using System.Text.Json;
-using Newtonsoft.Json;
 
 namespace UISTask.Application.Services
 {
@@ -70,49 +69,44 @@ namespace UISTask.Application.Services
 
         public async Task<TransactionAddDto> AddTransactionAsync(TransactionAddDto transactionAddDto)
         {
-            // Create a new transaction entity
             var transaction = new Transaction
             {
                 Date = transactionAddDto.Date,
-                ProductTransactions = new List<ProductTransaction>() 
+                ProductTransactions = new List<ProductTransaction>()
             };
 
             foreach (var productTransactionDto in transactionAddDto.ProductTransactions)
             {
-                var product = await _unitOfWork.ProductRepo.GetTransactionProductByIdAsync(productTransactionDto.ProductId);
+                var product = await _unitOfWork.ProductRepo.GetProductByIdAsync(productTransactionDto.ProductId);
 
                 if (product == null)
                 {
                     throw new KeyNotFoundException($"Product with ID {productTransactionDto.ProductId} not found.");
                 }
 
+                if (product.CurrentQuantity < productTransactionDto.Quantity)
+                {
+                    throw new InvalidOperationException($"Not enough stock for product ID {productTransactionDto.ProductId}.");
+                }
+
                 var productTransaction = new ProductTransaction
                 {
-                    ProductId = product.Id, 
+                    ProductId = product.Id,
                     Quantity = productTransactionDto.Quantity,
                     TotalPrice = productTransactionDto.TotalPrice,
                     Product = product 
                 };
 
-                
-                if (product.CurrentQuantity >= productTransaction.Quantity)
-                {
-                    product.CurrentQuantity -= productTransaction.Quantity; 
-                    transaction.ProductTransactions.Add(productTransaction); 
-                }
-                else
-                {
-                    throw new InvalidOperationException($"Not enough stock for product ID {productTransactionDto.ProductId}.");
-                }
+                product.CurrentQuantity -= productTransaction.Quantity;
+                transaction.ProductTransactions.Add(productTransaction);
             }
 
-            
             await _unitOfWork.TransactionRepo.AddTransactionAsync(transaction);
             await _unitOfWork.SaveChangesAsync();
-            Console.WriteLine($"Received transaction: {JsonConvert.SerializeObject(transactionAddDto)}");
 
-            return transactionAddDto; 
+            return transactionAddDto;
         }
+
 
 
     }
