@@ -19,8 +19,6 @@ namespace UISTask.Application.Services
             _unitOfWork = unitOfWork;
 
         }
-
-
         public async Task<(IEnumerable<TransactionReadDto> transactions, int totalCount)> GetAllTransactionsAsync(int pageNumber, int pageSize)
         {
             var (transactions, totalCount) = await _unitOfWork.TransactionRepo.GetAllTransactionsAsync(pageNumber, pageSize);
@@ -29,12 +27,12 @@ namespace UISTask.Application.Services
             {
                 Id = t.Id,
                 Date = t.Date,
-               // ProductTransactions = t.ProductTransactions.Select(pt => new ProductTransactionDto
                     ProductTransactions = (t.ProductTransactions ?? Enumerable.Empty<ProductTransaction>()).Select(pt => new ProductTransactionDto
 
                     {
                     ProductId = pt.ProductId,
-                    //ProductName = pt.Product?.ProductName ?? string.Empty,
+                    ProductName = pt.Product?.ProductName ?? string.Empty,
+                    Unit = pt.Product?.Unit ?? string.Empty,
                     Quantity = pt.Quantity,
                     TotalPrice = pt.TotalPrice
                 }).ToList()
@@ -53,11 +51,11 @@ namespace UISTask.Application.Services
             {
                 Id = t.Id,
                 Date = t.Date,
-                // ProductTransactions = t.ProductTransactions.Select(pt => new ProductTransactionDto
                 ProductTransactions = (t.ProductTransactions ?? Enumerable.Empty<ProductTransaction>()).Select(pt => new ProductTransactionDto
                 {
                     ProductId = pt.ProductId,
-                   // ProductName = pt.Product?.ProductName ?? string.Empty,
+                    ProductName = pt.Product?.ProductName ?? string.Empty,
+                    Unit = pt.Product?.Unit ?? string.Empty,
                     Quantity = pt.Quantity,
                     TotalPrice = pt.TotalPrice
                 }).ToList()
@@ -69,6 +67,8 @@ namespace UISTask.Application.Services
 
         public async Task<TransactionAddDto> AddTransactionAsync(TransactionAddDto transactionAddDto)
         {
+            
+
             var transaction = new Transaction
             {
                 Date = transactionAddDto.Date,
@@ -94,6 +94,7 @@ namespace UISTask.Application.Services
                     ProductId = product.Id,
                     Quantity = productTransactionDto.Quantity,
                     TotalPrice = productTransactionDto.TotalPrice,
+                    Unit = productTransactionDto.Unit,
                     Product = product 
                 };
 

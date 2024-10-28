@@ -52,7 +52,7 @@ namespace UISTask.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("366c394a-7818-4b06-94c1-c7525a7f8415"),
+                            Id = new Guid("a694e664-6368-4179-8e84-7246a7ec0779"),
                             CurrentQuantity = 100,
                             InitialQuantity = 100,
                             Price = 10.5m,
@@ -61,7 +61,7 @@ namespace UISTask.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("7874cf2b-b47e-4df2-b2c4-37c04fc03dd7"),
+                            Id = new Guid("6c9e93fa-2eba-4b96-8cc2-2a3a6f2cb8ef"),
                             CurrentQuantity = 200,
                             InitialQuantity = 200,
                             Price = 2.0m,
@@ -70,7 +70,7 @@ namespace UISTask.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("31ac27d7-4c50-4dc7-8019-1a4e52a37853"),
+                            Id = new Guid("fd458913-483b-4832-b144-f4971924db41"),
                             CurrentQuantity = 50,
                             InitialQuantity = 50,
                             Price = 5.0m,
@@ -93,6 +93,10 @@ namespace UISTask.Infrastructure.Migrations
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<string>("Unit")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("ProductId", "TransactionId");
 
                     b.HasIndex("TransactionId");
@@ -102,45 +106,51 @@ namespace UISTask.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            ProductId = new Guid("366c394a-7818-4b06-94c1-c7525a7f8415"),
-                            TransactionId = new Guid("fa420b22-7309-42d0-a269-fce44df13ad3"),
+                            ProductId = new Guid("a694e664-6368-4179-8e84-7246a7ec0779"),
+                            TransactionId = new Guid("f0ce4bc0-eae3-4292-b2ab-af0f47b19059"),
                             Quantity = 10,
-                            TotalPrice = 105.0m
+                            TotalPrice = 105.0m,
+                            Unit = ""
                         },
                         new
                         {
-                            ProductId = new Guid("7874cf2b-b47e-4df2-b2c4-37c04fc03dd7"),
-                            TransactionId = new Guid("fa420b22-7309-42d0-a269-fce44df13ad3"),
+                            ProductId = new Guid("6c9e93fa-2eba-4b96-8cc2-2a3a6f2cb8ef"),
+                            TransactionId = new Guid("f0ce4bc0-eae3-4292-b2ab-af0f47b19059"),
                             Quantity = 20,
-                            TotalPrice = 40.0m
+                            TotalPrice = 40.0m,
+                            Unit = ""
                         },
                         new
                         {
-                            ProductId = new Guid("366c394a-7818-4b06-94c1-c7525a7f8415"),
-                            TransactionId = new Guid("9eacff09-2939-4fc2-b51a-da4c7c2690e3"),
+                            ProductId = new Guid("a694e664-6368-4179-8e84-7246a7ec0779"),
+                            TransactionId = new Guid("e0b25fd9-f1c3-4915-a552-1468c3f54673"),
                             Quantity = 5,
-                            TotalPrice = 52.5m
+                            TotalPrice = 52.5m,
+                            Unit = ""
                         },
                         new
                         {
-                            ProductId = new Guid("31ac27d7-4c50-4dc7-8019-1a4e52a37853"),
-                            TransactionId = new Guid("f8d4e395-7dc0-4fbf-b7d3-49e16dee8b9f"),
+                            ProductId = new Guid("fd458913-483b-4832-b144-f4971924db41"),
+                            TransactionId = new Guid("2af574f7-005c-4473-850e-60c22c5b1724"),
                             Quantity = 15,
-                            TotalPrice = 75.0m
+                            TotalPrice = 75.0m,
+                            Unit = ""
                         },
                         new
                         {
-                            ProductId = new Guid("7874cf2b-b47e-4df2-b2c4-37c04fc03dd7"),
-                            TransactionId = new Guid("ae9b2941-7140-48bd-a7e8-901ee37e1bf4"),
+                            ProductId = new Guid("6c9e93fa-2eba-4b96-8cc2-2a3a6f2cb8ef"),
+                            TransactionId = new Guid("4b5287d3-0933-4f49-8c2b-16fd1f62b177"),
                             Quantity = 30,
-                            TotalPrice = 60.0m
+                            TotalPrice = 60.0m,
+                            Unit = ""
                         },
                         new
                         {
-                            ProductId = new Guid("31ac27d7-4c50-4dc7-8019-1a4e52a37853"),
-                            TransactionId = new Guid("27a38c3b-7f37-4f3a-96c6-36caf960f805"),
+                            ProductId = new Guid("fd458913-483b-4832-b144-f4971924db41"),
+                            TransactionId = new Guid("84a7ebf5-3175-4107-a35e-34ee26e1b1d6"),
                             Quantity = 25,
-                            TotalPrice = 125.0m
+                            TotalPrice = 125.0m,
+                            Unit = ""
                         });
                 });
 
@@ -160,27 +170,27 @@ namespace UISTask.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("fa420b22-7309-42d0-a269-fce44df13ad3"),
+                            Id = new Guid("f0ce4bc0-eae3-4292-b2ab-af0f47b19059"),
                             Date = new DateTime(2024, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = new Guid("9eacff09-2939-4fc2-b51a-da4c7c2690e3"),
+                            Id = new Guid("e0b25fd9-f1c3-4915-a552-1468c3f54673"),
                             Date = new DateTime(2024, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = new Guid("f8d4e395-7dc0-4fbf-b7d3-49e16dee8b9f"),
+                            Id = new Guid("2af574f7-005c-4473-850e-60c22c5b1724"),
                             Date = new DateTime(2024, 10, 3, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = new Guid("ae9b2941-7140-48bd-a7e8-901ee37e1bf4"),
+                            Id = new Guid("4b5287d3-0933-4f49-8c2b-16fd1f62b177"),
                             Date = new DateTime(2024, 10, 4, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = new Guid("27a38c3b-7f37-4f3a-96c6-36caf960f805"),
+                            Id = new Guid("84a7ebf5-3175-4107-a35e-34ee26e1b1d6"),
                             Date = new DateTime(2024, 10, 5, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });

@@ -13,6 +13,8 @@ namespace UISTask.Domain.Entities
 
         public Guid TransactionId { get; set; }
         public Transaction? Transaction { get; set; }
+        public string Unit { get; set; } = string.Empty;
+
 
         public int Quantity { get; set; }
         public decimal TotalPrice { get; set; }

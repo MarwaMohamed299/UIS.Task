@@ -15,7 +15,6 @@ namespace UISTask.Domain.Entities
         public int InitialQuantity { get; set; }
         public int CurrentQuantity { get; set; }
 
-        // Navigation property for the many-to-many relationship
         public ICollection<ProductTransaction>? ProductTransaction { get; set; } = new List<ProductTransaction>();
     }
 }
