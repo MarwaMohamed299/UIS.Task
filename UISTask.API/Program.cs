@@ -70,7 +70,6 @@ try
 
     #region Middlewares
 
-    //app.UseExceptionHandler();
     app.UseSwagger();
     app.UseSwaggerUI();
 
